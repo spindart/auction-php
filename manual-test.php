@@ -3,7 +3,7 @@
 use Tdd\Auction\Model\Bid;
 use Tdd\Auction\Model\Auction;
 use Tdd\Auction\Model\User;
-use Tdd\Auction\Service\Appraiser;
+use Tdd\Auction\Service\Evaluator;
 
 require 'vendor/autoload.php';
 
@@ -15,11 +15,11 @@ $user2 = new User('Maria');
 $auction->makeBid(new Bid($user1, 2000));
 $auction->makeBid(new Bid($user2, 3000));
 
-$appraiser = new Appraiser();
+$evaluator = new Evaluator();
 
 // Act - When
-$appraiser->evaluate($auction);
-$highestValue = $appraiser->getHighestValue();
+$evaluator->evaluate($auction);
+$highestValue = $evaluator->getHighestValue();
 
 // Assert - Then
 $expectedValue = 3000;
