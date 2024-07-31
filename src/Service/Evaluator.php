@@ -42,12 +42,12 @@ class Evaluator
 
 
         $worstBids = $auction->getBids();
-        // Sort bids in ascending order based on their values
+        // Sort bids in descending order based on their values
         usort($worstBids, function (Bid $bid1, Bid $bid2) {
             return $bid1->getValue() - $bid2->getValue();
         });
 
-        $this->worstBids = array_slice($worstBids, 0, 3); // get the top 3 highest bids
+        $this->worstBids = array_slice($worstBids, 0, 3); // get the top 3 lowest bids
 
 
     }
