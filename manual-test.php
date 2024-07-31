@@ -1,9 +1,9 @@
 <?php
 
-use Tdd\Auction\Model\Bid;
-use Tdd\Auction\Model\Auction;
-use Tdd\Auction\Model\User;
-use Tdd\Auction\Service\Evaluator;
+use Auction\Model\Bid;
+use Auction\Model\Auction;
+use Auction\Model\User;
+use Auction\Service\Evaluator;
 
 require 'vendor/autoload.php';
 
