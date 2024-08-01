@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         stopOnFailure="false"
+         cacheDirectory=".phpunit.cache">
+
+    <!-- Test Suites -->
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>tests\Units</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- Code Coverage Configuration -->
+    <coverage>
+        <report>
+            <html outputDirectory="coverage"/>
+            <!-- Optionally specify other formats -->
+            <!-- <clover outputFile="coverage/clover.xml"/> -->
+            <!-- <text outputFile="coverage/coverage.txt"/> -->
+        </report>
+        <include>
+            <!-- Include directories or files for coverage -->
+            <directory>src</directory>
+            <file>src/SomeFile.php</file>
+        </include>
+        <exclude>
+            <!-- Exclude directories or files from coverage -->
+            <directory>vendor</directory>
+            <directory>tests/Exclude</directory>
+            <file>tests/SomeExcludedTest.php</file>
+        </exclude>
+    </coverage>
+
+    <!-- Test Settings -->
+    <php>
+        <env name="ENVIRONMENT" value="testing"/>
+    </php>
+
+    <!-- Logging -->
+    <logging>
+        <junit outputFile="reports/junit"/>
+        <testdoxText outputFile="reports/testdox.txt"/>
+         <testdoxHtml outputFile="reports/stestdox.html"/>
+    </logging>
+</phpunit>
