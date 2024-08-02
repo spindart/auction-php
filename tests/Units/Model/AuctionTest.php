@@ -5,11 +5,11 @@ namespace Auction\Tests\Model;
 use Auction\Model\Auction;
 use Auction\Model\Bid;
 use Auction\Model\User;
+use PhpParser\Node\Stmt\UseUse;
 use PHPUnit\Framework\TestCase;
 
 class AuctionTest extends TestCase
 {
-
     /**
      * @dataProvider makeBids
      */
@@ -24,6 +24,18 @@ class AuctionTest extends TestCase
         foreach ($values as $i => $valueExpected) {
             static::assertEquals($valueExpected, $auction->getBids()[$i]->getValue());
         }
+    }
+
+    public function testAuctionMustNotReceiveRepeatBids(): void
+    {
+        $auction = new Auction('BMW');
+        $user = new User('Francisca');
+
+        $auction->makeBid(new Bid($user, 2000));
+        $auction->makeBid(new Bid($user, 2500));
+
+        static::assertCount(1, $auction->getBids());
+        static::assertEquals(2000, $auction->getBids()[0]->getValue());
     }
 
     public static  function makeBids(): array

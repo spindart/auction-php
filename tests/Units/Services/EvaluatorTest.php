@@ -11,10 +11,12 @@ use Auction\Service\Evaluator;
 class EvaluatorTest extends TestCase
 {
     private $evaluator;
+
     protected function setUp(): void
     {
         $this->evaluator = new Evaluator();
     }
+
     /**
      * @dataProvider auctionInAscedingOrder
      * @dataProvider auctionInDescendingOrder
@@ -29,6 +31,7 @@ class EvaluatorTest extends TestCase
         // Assert - Then
         self::assertEquals(4000, $highestValue);
     }
+
     /**
      * @dataProvider auctionInAscedingOrder
      * @dataProvider auctionInDescendingOrder
@@ -116,6 +119,7 @@ class EvaluatorTest extends TestCase
             'Desceding Order' =>  [$auction]
         ];
     }
+
     public static function auctionInRandomOrder(): array
     {
         $auction = new Auction('Lambo');

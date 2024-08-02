@@ -18,7 +18,6 @@ class User
     {
         $this->name = $name;
     }
-
     /**
      * Returns the name of the user.
      *

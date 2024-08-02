@@ -1,7 +1,6 @@
 <?php
 
 namespace Auction\Model;
-
 class Auction
 {
     /** @var Bid[] */
@@ -21,22 +20,22 @@ class Auction
         $this->description = $description;
         $this->bids = [];
     }
-
     /**
      * Adds a new bid to the auction.
      *
-     * @param Bid $lance The bid to be added.
+     * @param Bid $bid The bid to be added.
      *
      * @return void
      *
      * @throws \InvalidArgumentException If the bid is not an instance of Auction\Model\Bid.
      */
-    public function makeBid(Bid $lance)
+    public function makeBid(Bid $bid)
     {
-        $this->bids[] = $lance;
+        if (!empty($this->bids) && $this->isFromLastUser($bid)) {
+            return;
+        }
+        $this->bids[] = $bid;
     }
-
-
     /**
      * Retrieves the list of bids made in the auction.
      *
@@ -45,5 +44,21 @@ class Auction
     public function getBids(): array
     {
         return $this->bids;
+    }
+    /**
+     * Checks if the bid is from the same user as the last bid.
+     *
+     * @access private
+     * 
+     * @param Bid $bid The bid to be checked.
+     *
+     * @return bool Returns true if the bid is from the same user as the last bid, false otherwise.
+     *
+     * @throws \InvalidArgumentException If the bid is not an instance of Auction\Model\Bid.
+     */
+    private function isFromLastUser(Bid $bid): bool
+    {
+        $lastBid = $this->bids[count($this->bids) - 1];
+        return  $bid->getUser() == $lastBid->getUser();
     }
 }
