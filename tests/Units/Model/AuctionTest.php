@@ -28,18 +28,20 @@ class AuctionTest extends TestCase
 
     public function testAuctionMustNotReceiveRepeatBids(): void
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('User cannot make two consecutive bids.');
         $auction = new Auction('BMW');
         $user = new User('Francisca');
 
         $auction->makeBid(new Bid($user, 2000));
         $auction->makeBid(new Bid($user, 2500));
-
-        static::assertCount(1, $auction->getBids());
-        static::assertEquals(2000, $auction->getBids()[0]->getValue());
     }
 
     public function testAuctionShouldNotAcceptMoreThanFiveBidsPerUser(): void
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('User cannot place more than five bids in the same auction.');
+
         $auction = new Auction('Camaro');
         $user1 = new User('Fernanda');
         $user2 = new User('Pedro');
@@ -57,8 +59,6 @@ class AuctionTest extends TestCase
 
         $auction->makeBid(new Bid($user1, 9000));
 
-        static::assertCount(10, $auction->getBids());
-        static::assertEquals(8000, $auction->getBids()[array_key_last($auction->getBids())]->getValue());
     }
 
     public static  function makeBids(): array
