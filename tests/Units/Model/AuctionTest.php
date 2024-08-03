@@ -38,6 +38,29 @@ class AuctionTest extends TestCase
         static::assertEquals(2000, $auction->getBids()[0]->getValue());
     }
 
+    public function testAuctionShouldNotAcceptMoreThanFiveBidsPerUser(): void
+    {
+        $auction = new Auction('Camaro');
+        $user1 = new User('Fernanda');
+        $user2 = new User('Pedro');
+
+        $auction->makeBid(new Bid($user1, 1000));
+        $auction->makeBid(new Bid($user2, 1500));
+        $auction->makeBid(new Bid($user1, 2000));
+        $auction->makeBid(new Bid($user2, 3000));
+        $auction->makeBid(new Bid($user1, 4000));
+        $auction->makeBid(new Bid($user2, 5000));
+        $auction->makeBid(new Bid($user1, 6000));
+        $auction->makeBid(new Bid($user2, 7000));
+        $auction->makeBid(new Bid($user1, 7500));
+        $auction->makeBid(new Bid($user2, 8000));
+
+        $auction->makeBid(new Bid($user1, 9000));
+
+        static::assertCount(10, $auction->getBids());
+        static::assertEquals(8000, $auction->getBids()[array_key_last($auction->getBids())]->getValue());
+    }
+
     public static  function makeBids(): array
     {
         $auction = new Auction('Ferrari');

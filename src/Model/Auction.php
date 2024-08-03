@@ -1,6 +1,7 @@
 <?php
 
 namespace Auction\Model;
+
 class Auction
 {
     /** @var Bid[] */
@@ -20,6 +21,7 @@ class Auction
         $this->description = $description;
         $this->bids = [];
     }
+
     /**
      * Adds a new bid to the auction.
      *
@@ -34,8 +36,15 @@ class Auction
         if (!empty($this->bids) && $this->isFromLastUser($bid)) {
             return;
         }
+
+        $totalBidsPeruser = $this->totalBidsPerUser($bid->getUser());
+
+        if ($totalBidsPeruser >= 5) {
+            return;
+        }
         $this->bids[] = $bid;
     }
+
     /**
      * Retrieves the list of bids made in the auction.
      *
@@ -45,6 +54,7 @@ class Auction
     {
         return $this->bids;
     }
+
     /**
      * Checks if the bid is from the same user as the last bid.
      *
@@ -58,7 +68,32 @@ class Auction
      */
     private function isFromLastUser(Bid $bid): bool
     {
-        $lastBid = $this->bids[count($this->bids) - 1];
+        $lastBid = $this->bids[array_key_last($this->bids)];
         return  $bid->getUser() == $lastBid->getUser();
+    }
+
+    /**
+     * Calculates the total number of bids made by a specific user in the auction.
+     *
+     * @param User $user The user whose bids are to be counted.
+     *
+     * @return int The total number of bids made by the specified user.
+     *
+     * @throws \InvalidArgumentException If the provided user is not an instance of Auction\Model\User.
+     */
+    private function totalBidsPerUser(User $user): int
+    {
+        $totalBidsPerUser = array_reduce(
+            $this->bids,
+            function (int $totalAcc, Bid $currentBid) use ($user) {
+                if ($currentBid->getUser() == $user) {
+                    return $totalAcc + 1;
+                }
+                return $totalAcc;
+            },
+            0 // initial
+        );
+
+        return $totalBidsPerUser;
     }
 }
