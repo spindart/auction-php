@@ -22,6 +22,11 @@ class Evaluator
      */
     public function evaluate(Auction $auction): void
     {
+
+        if (empty($auction->getBids())) {
+            throw new \DomainException("You can't evaluate an auction without bids");
+        }
+
         foreach ($auction->getBids() as $bid) {
             if ($bid->getValue() > $this->highestValue) {
                 $this->highestValue = $bid->getValue();

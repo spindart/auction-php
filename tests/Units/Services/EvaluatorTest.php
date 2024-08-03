@@ -83,6 +83,15 @@ class EvaluatorTest extends TestCase
         self::assertEquals(3000, $topThreeLowestBids[2]->getValue());
     }
 
+    public function testAuctionWithoutBidsCannotBeEvaluted()
+    {
+        $this->expectException((\DomainException::class));
+        $this->expectExceptionMessage("You can't evaluate an auction without bids");
+        
+        $auction = new Auction('Monza');
+        $this->evaluator->evaluate($auction);
+    }
+
     /* ------ Arrange - Given ------ */
     public static function auctionInAscedingOrder(): array
     {
