@@ -96,4 +96,9 @@ class Auction
 
         return $totalBidsPerUser;
     }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }

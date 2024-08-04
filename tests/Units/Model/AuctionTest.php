@@ -37,6 +37,12 @@ class AuctionTest extends TestCase
         $auction->makeBid(new Bid($user, 2500));
     }
 
+    public function testAuctionMustGetDescription(): void
+    {
+        $auction = new Auction('Ferrari');
+        $this->assertEquals('Ferrari', $auction->getDescription());
+    }
+
     public function testAuctionShouldNotAcceptMoreThanFiveBidsPerUser(): void
     {
         $this->expectException(\DomainException::class);
@@ -58,7 +64,6 @@ class AuctionTest extends TestCase
         $auction->makeBid(new Bid($user2, 8000));
 
         $auction->makeBid(new Bid($user1, 9000));
-
     }
 
     public static  function makeBids(): array
