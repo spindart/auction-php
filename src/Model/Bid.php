@@ -24,6 +24,7 @@ class Bid
         $this->user = $user;
         $this->value = $value;
     }
+
     /**
      * Returns the user who made the bid.
      *
@@ -33,6 +34,7 @@ class Bid
     {
         return $this->user;
     }
+
     /**
      * Returns the value of the bid.
      *

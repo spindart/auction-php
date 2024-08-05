@@ -97,6 +97,11 @@ class Auction
         return $totalBidsPerUser;
     }
 
+    /**
+     * Retrieves the brief description of the auction.
+     *
+     * @return string The brief description of the auction.
+     */
     public function getDescription()
     {
         return $this->description;
