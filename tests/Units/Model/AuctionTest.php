@@ -39,8 +39,9 @@ class AuctionTest extends TestCase
 
     public function testAuctionMustGetDescription(): void
     {
-        $auction = new Auction('Ferrari');
-        $this->assertEquals('Ferrari', $auction->getDescription());
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('No description was given for the auction.');
+        new Auction('');
     }
 
     public function testAuctionShouldNotAcceptMoreThanFiveBidsPerUser(): void

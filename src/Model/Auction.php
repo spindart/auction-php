@@ -18,6 +18,9 @@ class Auction
      */
     public function __construct(string $description)
     {
+        if(empty($description)){
+            throw new \DomainException('No description was given for the auction.');
+        }
         $this->description = $description;
         $this->bids = [];
     }
