@@ -23,6 +23,10 @@ class Evaluator
     public function evaluate(Auction $auction): void
     {
 
+        if ($auction->isFinished()) {
+            throw new \DomainException('Auction is already finalized');
+        }
+
         if (empty($auction->getBids())) {
             throw new \DomainException("You can't evaluate an auction without bids");
         }

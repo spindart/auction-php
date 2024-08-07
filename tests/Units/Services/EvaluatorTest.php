@@ -87,9 +87,33 @@ class EvaluatorTest extends TestCase
     {
         $this->expectException((\DomainException::class));
         $this->expectExceptionMessage("You can't evaluate an auction without bids");
-        
+
         $auction = new Auction('Monza');
         $this->evaluator->evaluate($auction);
+    }
+
+    public function testFinalizedAuctionCannotBeFinalized()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("Auction is already finalized");
+
+        $auction = new Auction('Monza');
+        $auction->makeBid(new Bid(new User('Jose'), 1000));
+        $auction->finish();
+
+        $this->evaluator->evaluate($auction);
+    }
+
+    public function testFinishedAuctionCannotReceiveBids()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The auction has already been concluded and cannot receive bids");
+
+        $auction = new Auction('Monza');
+        $auction->makeBid(new Bid(new User('Jose'), 1000));
+        $auction->finish();
+        $auction->makeBid(new Bid(new User('Pedro'), 1500));
+        
     }
 
     /* ------ Arrange - Given ------ */
