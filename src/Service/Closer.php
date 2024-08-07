@@ -9,6 +9,11 @@ use Auction\Dao\Auction as AuctionDao;
  */
 class Closer
 {
+    private $auctionDao;
+    public function __construct(AuctionDao $auctionDao)
+    {
+        $this->auctionDao = $auctionDao;
+    }
     /**
      * Closes auctions that have not been finished for more than one week.
      *
@@ -16,13 +21,13 @@ class Closer
      */
     public function close()
     {
-        $dao = new AuctionDao();
-        $auctions = $dao->retrieveNotFinished();
+
+        $auctions = $this->auctionDao->retrieveNotFinished();
 
         foreach ($auctions as $auction) {
             if ($auction->hasMoreThanOneWeek()) {
                 $auction->finish();
-                $dao->update($auction);
+                $this->auctionDao->update($auction);
             }
         }
     }
