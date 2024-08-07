@@ -43,6 +43,17 @@ class AuctionTest extends TestCase
         $this->expectExceptionMessage('No description was given for the auction.');
         new Auction('');
     }
+    public function testBidMustNotBeLowerThanPreviousBid(): void
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('New bid must be higher than the current highest bid.');
+        $auction = new Auction('Camaro');
+        $user1 = new User('Fernanda');
+        $user2 = new User('Pedro');
+
+        $auction->makeBid(new Bid($user1, 1000));
+        $auction->makeBid(new Bid($user2, 800));
+    }
 
     public function testAuctionShouldNotAcceptMoreThanFiveBidsPerUser(): void
     {
