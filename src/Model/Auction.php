@@ -11,14 +11,21 @@ class Auction
 
     /** @var bool */
     private $finished;
+    /** @var \DateTimeInterface  */
+    private $initialDate;
+    /** @var int */
+    private $id;
+
     /**
      * Constructs a new Auction object.
      *
-     * @param string $description A brief description of the auction.
+     * @param string $description The brief description of the auction.
+     * @param \DateTimeImmutable|null $initialDate The initial date and time of the auction. If not provided, the current date and time will be used.
+     * @param int|null $id The unique identifier of the auction. If not provided, a default value will be assigned.
      *
-     * @return void
+     * @throws \DomainException If no description is provided for the auction.
      */
-    public function __construct(string $description)
+    public function __construct(string $description, \DateTimeImmutable $initialDate = null, int $id = null)
     {
         if (empty($description)) {
             throw new \DomainException('No description was given for the auction.');
@@ -27,6 +34,8 @@ class Auction
         $this->description = $description;
         $this->bids = [];
         $this->finished = false;
+        $this->initialDate = $initialDate ?? new \DateTimeImmutable();
+        $this->id = $id;
     }
 
     /**
@@ -79,6 +88,46 @@ class Auction
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Retrieves the initial date and time of the auction.
+     *
+     * @return \DateTimeInterface The initial date and time of the auction.
+     *
+     * @throws \Exception If the initial date and time is not set or is not a valid DateTimeInterface object.
+     */
+    public function getInitialDate(): \DateTimeInterface
+    {
+        return $this->initialDate;
+    }
+
+    /**
+     * Checks if the auction started more than a week ago.
+     *
+     * This method compares the initial date of the auction with the current date to determine if the auction
+     * has been running for more than a week.
+     *
+     * @return bool Returns true if the auction started more than a week ago, false otherwise.
+     *
+     * @throws \Exception If the initial date and time is not set or is not a valid DateTimeInterface object.
+     */
+    public function hasMoreThanOneWeek(): bool
+    {
+        $today = new \DateTime();
+        $interval = $this->initialDate->diff($today);
+
+        return $interval->days > 7;
+    }
+
+    /**
+     * Retrieves the unique identifier of the auction.
+     *
+     * @return int The unique identifier of the auction.
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
