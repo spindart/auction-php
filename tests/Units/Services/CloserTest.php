@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 class AuctionDaoMock extends AuctionDao
 {
     private $auctions = [];
+
     public function save(Auction $auction): void
     {
         $this->auctions[] = $auction;
@@ -22,6 +23,7 @@ class AuctionDaoMock extends AuctionDao
             return !$auction->isFinished();
         });
     }
+
     public function retrieveFinalized(): array
     {
         return array_filter($this->auctions, function (Auction $auction) {
@@ -33,6 +35,7 @@ class AuctionDaoMock extends AuctionDao
     {
     }
 }
+
 class CloserTest extends TestCase
 {
 
@@ -50,7 +53,6 @@ class CloserTest extends TestCase
         $closer->close();
 
         // Assert
-
         $auctions = $auctionDao->retrieveFinalized();
         self::assertCount(2, $auctions);
         self::assertEquals('Camaro', $auctions[0]->getDescription());
