@@ -19,8 +19,11 @@ class CloserTest extends TestCase
         $auction2 = new Auction('Ferrari', new \DateTimeImmutable('10 days ago'));
 
         $auctionDao = $this->createMock(AuctionDao::class);
+        // $auctionDao = $this->getMockBuilder(AuctionDao::class)->setConstructorArgs([new \PDO('sqlite::memory:')])->getMock();
         $auctionDao->method('retrieveNotFinished')->willReturn([$auction1, $auction2]);
         $auctionDao->method('retrieveFinalized')->willReturn([$auction1, $auction2]);
+        $auctionDao->expects($this->exactly(2))->method('update');
+
         $auctionDao->save($auction1);
         $auctionDao->save($auction2);
         // Act
