@@ -5,16 +5,11 @@ namespace Auction\Model;
 class Auction
 {
     /** @var Bid[] */
-    private $bids;
-    /** @var string */
-    private $description;
-
-    /** @var bool */
-    private $finished;
-    /** @var \DateTimeInterface  */
-    private $initialDate;
-    /** @var int */
-    private $id;
+    private array $bids;
+    private string $description;
+    private bool $finished;
+    private \DateTimeInterface|null $initialDate;
+    private int|null $id;
 
     /**
      * Constructs a new Auction object.

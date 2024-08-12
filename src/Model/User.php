@@ -4,16 +4,8 @@ namespace Auction\Model;
 
 class User
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * Constructs a new User object.
-     *
-     * @param string $name The name of the user.
-     */
     public function __construct(string $name)
     {
         $this->name = $name;

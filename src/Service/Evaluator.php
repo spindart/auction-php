@@ -7,11 +7,11 @@ use Auction\Model\Bid;
 
 class Evaluator
 {
-    private $highestValue = -INF;
-    private $lowestValue = INF;
+    private float $highestValue = -INF;
+    private float $lowestValue = INF;
 
-    private $bestBids = [];
-    private $worstBids = [];
+    private array $bestBids = [];
+    private array $worstBids = [];
 
     /**
      * Evaluates an auction to determine the highest and lowest bid values.

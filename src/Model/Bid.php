@@ -9,9 +9,9 @@ namespace Auction\Model;
 class Bid
 {
     /** @var User The user who made the bid. */
-    private $user;
+    private User $user;
     /** @var float The value of the bid. */
-    private $value;
+    private float $value;
 
     /**
      * Bid constructor.

@@ -6,7 +6,6 @@ use Auction\Model\Auction;
 
 class EmailSender
 {
-
     /**
      * Sends an email notification to the specified recipient when an auction is closed.
      *

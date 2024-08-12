@@ -11,8 +11,8 @@ use Exception;
  */
 class Closer
 {
-    private $auctionDao;
-    private $emailSender;
+    private AuctionDao $auctionDao;
+    private EmailSender $emailSender;
     public function __construct(AuctionDao $auctionDao, EmailSender $emailSender)
     {
         $this->auctionDao = $auctionDao;
