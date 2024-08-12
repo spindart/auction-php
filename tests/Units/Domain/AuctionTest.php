@@ -31,10 +31,18 @@ class AuctionTest extends TestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('User cannot make two consecutive bids.');
         $auction = new Auction('BMW');
-        $user = new User('Francisca');
 
-        $auction->makeBid(new Bid($user, 2000));
-        $auction->makeBid(new Bid($user, 2500));
+        $fernanda = self::createMock(User::class);
+        $fernanda->method('getName')->willReturn('Fernanda');
+
+        $bid1 = $this->getMockBuilder(Bid::class)->setConstructorArgs([$fernanda, 2000])->getMock();
+        $bid1->method('getValue')->willReturn(2000.0);
+
+        $bid2 = $this->getMockBuilder(Bid::class)->setConstructorArgs([$fernanda, 2500])->getMock();
+        $bid2->method('getValue')->willReturn(2500.0);
+
+        $auction->makeBid($bid1);
+        $auction->makeBid($bid2);
     }
 
     public function testAuctionMustGetDescription(): void
@@ -48,11 +56,20 @@ class AuctionTest extends TestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('New bid must be higher than the current highest bid.');
         $auction = new Auction('Camaro');
-        $user1 = new User('Fernanda');
-        $user2 = new User('Pedro');
+        $fernanda = self::createMock(User::class);
+        $fernanda->method('getName')->willReturn('Fernanda');
+        $pedro = self::createMock(User::class);
+        $pedro->method('getName')->willReturn('Pedro');
 
-        $auction->makeBid(new Bid($user1, 1000));
-        $auction->makeBid(new Bid($user2, 800));
+
+        $bid1 = $this->getMockBuilder(Bid::class)->setConstructorArgs([$fernanda, 1000])->getMock();
+        $bid1->method('getValue')->willReturn(2000.0);
+
+        $bid2 = $this->getMockBuilder(Bid::class)->setConstructorArgs([$pedro, 800])->getMock();
+        $bid2->method('getValue')->willReturn(800.0);
+
+        $auction->makeBid($bid1);
+        $auction->makeBid($bid2);
     }
 
     public function testAuctionShouldNotAcceptMoreThanFiveBidsPerUser(): void
