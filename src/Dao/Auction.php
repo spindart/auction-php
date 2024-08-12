@@ -18,6 +18,7 @@ class Auction
      * Saves a new auction to the database.
      *
      * @param ModelAuction $auction The auction object to be saved.
+     * @return void
      */
     public function save(ModelAuction $auction): void
     {
@@ -77,8 +78,9 @@ class Auction
      * Updates an existing auction in the database.
      *
      * @param ModelAuction $auction The auction object with updated information.
+     * @return void
      */
-    public function update(ModelAuction $auction)
+    public function update(ModelAuction $auction): void
     {
         $sql = 'UPDATE auctions SET description = :description, initialDate = :initialDate, finished = :finished WHERE id = :id';
         $stm = $this->con->prepare($sql);

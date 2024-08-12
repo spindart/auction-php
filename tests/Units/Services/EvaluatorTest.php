@@ -83,7 +83,7 @@ class EvaluatorTest extends TestCase
         self::assertEquals(3000, $topThreeLowestBids[2]->getValue());
     }
 
-    public function testAuctionWithoutBidsCannotBeEvaluted()
+    public function testAuctionWithoutBidsCannotBeEvaluted(): void
     {
         $this->expectException((\DomainException::class));
         $this->expectExceptionMessage("You can't evaluate an auction without bids");
@@ -92,7 +92,7 @@ class EvaluatorTest extends TestCase
         $this->evaluator->evaluate($auction);
     }
 
-    public function testFinalizedAuctionCannotBeFinalized()
+    public function testFinalizedAuctionCannotBeFinalized(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Auction is already finalized");
@@ -104,7 +104,7 @@ class EvaluatorTest extends TestCase
         $this->evaluator->evaluate($auction);
     }
 
-    public function testFinishedAuctionCannotReceiveBids()
+    public function testFinishedAuctionCannotReceiveBids(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("The auction has already been concluded and cannot receive bids");
@@ -113,7 +113,6 @@ class EvaluatorTest extends TestCase
         $auction->makeBid(new Bid(new User('Jose'), 1000));
         $auction->finish();
         $auction->makeBid(new Bid(new User('Pedro'), 1500));
-        
     }
 
     /* ------ Arrange - Given ------ */

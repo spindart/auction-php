@@ -47,7 +47,7 @@ class Auction
      *
      * @throws \InvalidArgumentException If the bid is not an instance of Auction\Model\Bid.
      */
-    public function makeBid(Bid $bid)
+    public function makeBid(Bid $bid): void
     {
 
         if ($this->isFinished()) {
@@ -85,7 +85,7 @@ class Auction
      *
      * @return string The brief description of the auction.
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
