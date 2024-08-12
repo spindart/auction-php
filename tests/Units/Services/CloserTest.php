@@ -63,4 +63,12 @@ class CloserTest extends TestCase
         $this->emailSender->expects($this->exactly(2))->method('sendAuctionClosedEmail')->willThrowException($exception);
         $this->closer->close();
     }
+
+    public function testClosingEmailMustBeSentIfAuctionIsEnded()
+    {
+        $this->emailSender->expects($this->exactly(2))->method('sendAuctionClosedEmail')->willReturnCallback(function (Auction $auction) {
+            static::assertTrue($auction->isFinished());
+        });
+        $this->closer->close();
+    }
 }
