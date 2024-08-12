@@ -1,6 +1,6 @@
 <?php
 
-namespace Auction\Tests\Service;
+namespace Auction\Tests\Unit\Service;
 
 use Auction\Model\Auction;
 use \Auction\Dao\Auction as AuctionDao;
@@ -17,14 +17,14 @@ class CloserTest extends TestCase
     /**
      * @var MockObject
      */
-    private $auctionDao;
-    private $closer;
-    private $auction1;
-    private $auction2;
+    private AuctionDao $auctionDao;
+    private Closer $closer;
+    private Auction $auction1;
+    private Auction $auction2;
     /**
      * @var MockObject
      */
-    private $emailSender;
+    private EmailSender $emailSender;
 
     protected function setUp(): void
     {

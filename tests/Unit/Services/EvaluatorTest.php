@@ -1,6 +1,6 @@
 <?php
 
-namespace Auction\Tests\Service;
+namespace Auction\Tests\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Auction\Model\Auction;
@@ -10,7 +10,7 @@ use Auction\Service\Evaluator;
 
 class EvaluatorTest extends TestCase
 {
-    private $evaluator;
+    private Evaluator $evaluator;
 
     protected function setUp(): void
     {
