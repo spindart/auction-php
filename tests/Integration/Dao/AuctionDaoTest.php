@@ -22,17 +22,22 @@ class AuctionDaoTest extends TestCase
                 );';
         self::$pdo->exec($sql);
     }
+
     public function setUp(): void
     {
         self::$pdo->beginTransaction();
     }
 
-    public function testInsertionAndFetchMustWork()
+    /**
+     * @dataProvider auctions
+     */
+    public function testSearchNotFinishedAuctions(array $auctions)
     {
         // Arrange
-        $auction = new Auction('Mercedes');
         $auctionDao = new AuctionDao(self::$pdo);
-        $auctionDao->save($auction);
+        foreach ($auctions as $auction) {
+            $auctionDao->save($auction);
+        }
         // Act
         $auctions = $auctionDao->retrieveNotFinished();
         // Assert
@@ -41,8 +46,45 @@ class AuctionDaoTest extends TestCase
         self::assertSame('Mercedes', $auctions[0]->getDescription());
     }
 
+    /**
+     * @dataProvider auctions
+     */
+    public function testSearchFinishedAuctions(array $auctions)
+    {
+        // Arrange
+        $auctionDao = new AuctionDao(self::$pdo);
+        foreach ($auctions as $auction) {
+            $auctionDao->save($auction);
+        }
+        // Act
+        $auctions = $auctionDao->retrieveFinalized();
+        // Assert
+        self::assertCount(1, $auctions);
+        self::assertContainsOnlyInstancesOf(Auction::class, $auctions);
+        self::assertSame('Porsche', $auctions[0]->getDescription());
+    }
+
     public function tearDown(): void
     {
         self::$pdo->rollBack();
+    }
+
+    /*----------------------------------------------------------------
+    Data Providers
+    ----------------------------------------------------------------*/
+    public static function auctions(): array
+    {
+        $notFinished = new Auction('Mercedes');
+        $finished = new Auction('Porsche');
+        $finished->finish();
+
+        return [
+            'Auction finished and not finished' =>  [
+                [
+                    $notFinished,
+                    $finished
+                ]
+            ]
+        ];
     }
 }
