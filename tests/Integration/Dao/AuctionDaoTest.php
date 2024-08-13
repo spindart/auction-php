@@ -9,18 +9,29 @@ use PHPUnit\Framework\TestCase;
 
 class AuctionDaoTest extends TestCase
 {
-    private \PDO $pdo;
+    private static \PDO $pdo;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::$pdo = new \PDO('sqlite::memory:');
+        $sql = 'CREATE TABLE auctions (
+                id INTEGER PRIMARY KEY,
+                description TEXT,
+                finished BOOLEAN,
+                initialDate DATE
+                );';
+        self::$pdo->exec($sql);
+    }
     public function setUp(): void
     {
-        $this->pdo = ConnectionCreator::getConnection();
-        $this->pdo->beginTransaction();
+        self::$pdo->beginTransaction();
     }
 
     public function testInsertionAndFetchMustWork()
     {
         // Arrange
         $auction = new Auction('Mercedes');
-        $auctionDao = new AuctionDao($this->pdo);
+        $auctionDao = new AuctionDao(self::$pdo);
         $auctionDao->save($auction);
         // Act
         $auctions = $auctionDao->retrieveNotFinished();
@@ -32,6 +43,6 @@ class AuctionDaoTest extends TestCase
 
     public function tearDown(): void
     {
-        $this->pdo->rollBack();
+        self::$pdo->rollBack();
     }
 }
