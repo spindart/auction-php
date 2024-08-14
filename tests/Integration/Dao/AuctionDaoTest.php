@@ -44,6 +44,7 @@ class AuctionDaoTest extends TestCase
         self::assertCount(1, $auctions);
         self::assertContainsOnlyInstancesOf(Auction::class, $auctions);
         self::assertSame('Mercedes', $auctions[0]->getDescription());
+        self::assertFalse($auctions[0]->isFinished());
     }
 
     /**
@@ -62,6 +63,7 @@ class AuctionDaoTest extends TestCase
         self::assertCount(1, $auctions);
         self::assertContainsOnlyInstancesOf(Auction::class, $auctions);
         self::assertSame('Porsche', $auctions[0]->getDescription());
+        self::assertTrue($auctions[0]->isFinished());
     }
 
     public function tearDown(): void
