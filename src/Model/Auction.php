@@ -86,6 +86,24 @@ class Auction
     }
 
     /**
+     * Sets the brief description of the auction.
+     *
+     * @param string $description The brief description of the auction. It should not be empty.
+     *
+     * @return void
+     *
+     * @throws \DomainException If no description is provided for the auction.
+     */
+    public function setDescription(string $description): void
+    {
+        if (empty($description)) {
+            throw new \DomainException('No description was given for the auction.');
+        }
+
+        $this->description = $description;
+    }
+
+    /**
      * Retrieves the initial date and time of the auction.
      *
      * @return \DateTimeInterface The initial date and time of the auction.
