@@ -92,10 +92,10 @@ class EvaluatorTest extends TestCase
         $this->evaluator->evaluate($auction);
     }
 
-    public function testFinalizedAuctionCannotBeFinalized(): void
+    public function testFinishedAuctionCannotBeFinished(): void
     {
         $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage("Auction is already finalized");
+        $this->expectExceptionMessage("Auction is already Finished");
 
         $auction = new Auction('Monza');
         $auction->makeBid(new Bid(new User('Jose'), 1000));

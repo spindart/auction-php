@@ -24,7 +24,7 @@ class Evaluator
     {
 
         if ($auction->isFinished()) {
-            throw new \DomainException('Auction is already finalized');
+            throw new \DomainException('Auction is already Finished');
         }
 
         if (empty($auction->getBids())) {
