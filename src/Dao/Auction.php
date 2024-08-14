@@ -20,7 +20,7 @@ class Auction
      * @param ModelAuction $auction The auction object to be saved.
      * @return void
      */
-    public function save(ModelAuction $auction): ModelAuction
+    public function save(ModelAuction $auction): void
     {
         $sql = 'INSERT INTO auctions (description, finished, initialDate) VALUES (?, ?, ?)';
         $stm = $this->con->prepare($sql);
@@ -28,13 +28,6 @@ class Auction
         $stm->bindValue(2, $auction->isFinished(), \PDO::PARAM_BOOL);
         $stm->bindValue(3, $auction->getInitialDate()->format('Y-m-d'));
         $stm->execute();
-
-        return
-            new ModelAuction(
-                $auction->getDescription(),
-                $auction->getInitialDate(),
-                $this->con->lastInsertId()
-            );
     }
 
     /**
@@ -44,7 +37,7 @@ class Auction
      */
     public function retrieveNotFinished(): array
     {
-        return $this->retrieveAuctionIfFinished(false);
+        return $this->retrieveAuctionIfFinalized(false);
     }
 
     /**
@@ -52,9 +45,9 @@ class Auction
      *
      * @return ModelAuction[] An array of ModelAuction objects representing the finished auctions.
      */
-    public function retrieveFinished(): array
+    public function retrieveFinalized(): array
     {
-        return $this->retrieveAuctionIfFinished(true);
+        return $this->retrieveAuctionIfFinalized(true);
     }
 
     /**
@@ -63,7 +56,7 @@ class Auction
      * @param bool $finished Whether to retrieve finished (true) or not finished (false) auctions.
      * @return ModelAuction[] An array of ModelAuction objects representing the auctions with the specified finalization status.
      */
-    private function retrieveAuctionIfFinished(bool $finished): array
+    private function retrieveAuctionIfFinalized(bool $finished): array
     {
         $sql = 'SELECT * FROM auctions WHERE finished = ' . ($finished ? 1 : 0);
         $stm = $this->con->query($sql, \PDO::FETCH_ASSOC);

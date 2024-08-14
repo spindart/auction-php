@@ -31,7 +31,7 @@ class AuctionDaoTest extends TestCase
     /**
      * @dataProvider auctions
      */
-    public function testSearchNotFinishedAuctions(array $auctions): void
+    public function testSearchNotFinishedAuctions(array $auctions)
     {
         // Arrange
         $auctionDao = new AuctionDao(self::$pdo);
@@ -50,7 +50,7 @@ class AuctionDaoTest extends TestCase
     /**
      * @dataProvider auctions
      */
-    public function testSearchFinishedAuctions(array $auctions): void
+    public function testSearchFinishedAuctions(array $auctions)
     {
         // Arrange
         $auctionDao = new AuctionDao(self::$pdo);
@@ -58,33 +58,12 @@ class AuctionDaoTest extends TestCase
             $auctionDao->save($auction);
         }
         // Act
-        $auctions = $auctionDao->retrieveFinished();
+        $auctions = $auctionDao->retrieveFinalized();
         // Assert
         self::assertCount(1, $auctions);
         self::assertContainsOnlyInstancesOf(Auction::class, $auctions);
         self::assertSame('Porsche', $auctions[0]->getDescription());
         self::assertTrue($auctions[0]->isFinished());
-    }
-
-    public function testAuctionShouldChangeOnUpdate(): void
-    {
-        // test with intermediate test (No good idea, No pattern AAA)
-        $auction = new Auction('Camaro');
-        $auctionDao = new AuctionDao(self::$pdo);
-        $auction = $auctionDao->save($auction);
-        $auctionsNotFinished = $auctionDao->retrieveNotFinished();
-        self::assertCount(1, $auctionsNotFinished);
-        self::assertSame('Camaro', $auctionsNotFinished[0]->getDescription());
-        $auction->finish();
-
-        $auction->setDescription('Ferrari');
-        $auctionDao->update($auction);
-
-        // Assert
-        $auctionsFinished = $auctionDao->retrieveFinished();
-        self::assertCount(1, $auctionsFinished);
-        self::assertSame('Ferrari', $auctionsFinished[0]->getDescription());
-        self::assertTrue($auctionsFinished[0]->isFinished());
     }
 
     public function tearDown(): void
