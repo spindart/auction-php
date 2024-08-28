@@ -20,7 +20,6 @@ class Closer
     }
     /**
      * Closes auctions that have not been finished for more than one week.
-     *
      * @return void
      */
     public function close(): void
@@ -36,11 +35,8 @@ class Closer
 
     /**
      * Closes an auction that has not been finished for more than one week.
-     *
      * @param Auction $auction The auction to be closed.
-     *
      * @return void
-     *
      * @throws Exception If an error occurs while closing the auction.
      */
     private function closeAuctionMoreThanOneWeek(Auction $auction): void

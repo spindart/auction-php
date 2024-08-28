@@ -2,7 +2,6 @@
 
 namespace Auction\Dao;
 
-use Auction\Infra\ConnectionCreator;
 use Auction\Model\Auction as ModelAuction;
 
 class Auction

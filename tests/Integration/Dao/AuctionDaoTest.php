@@ -3,7 +3,6 @@
 namespace Auction\Tests\Integration\Dao;
 
 use Auction\Dao\Auction as AuctionDao;
-use Auction\Infra\ConnectionCreator;
 use Auction\Model\Auction;
 use PHPUnit\Framework\TestCase;
 
@@ -92,9 +91,9 @@ class AuctionDaoTest extends TestCase
         self::$pdo->rollBack();
     }
 
-    /*----------------------------------------------------------------
+    /*------------------------------
     Data Providers
-    ----------------------------------------------------------------*/
+    ------------------------------*/
     public static function auctions(): array
     {
         $notFinished = new Auction('Mercedes');

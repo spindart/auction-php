@@ -15,9 +15,7 @@ class Evaluator
 
     /**
      * Evaluates an auction to determine the highest and lowest bid values.
-     *
      * @param Auction $auction The auction to evaluate.
-     *
      * @return void
      */
     public function evaluate(Auction $auction): void
@@ -63,7 +61,6 @@ class Evaluator
 
     /**
      * Retrieves the highest bid value from the evaluated auction.
-     *
      * @return float The highest bid value.
      */
     public function getHighestValue(): float
@@ -73,7 +70,6 @@ class Evaluator
 
     /**
      * Retrieves the lowest bid value from the evaluated auction.
-     *
      * @return float The lowest bid value.
      */
     public function getLowestValue(): float
@@ -83,7 +79,6 @@ class Evaluator
 
     /**
      * Retrieves the top 3 highest bids from the evaluated auction.
-     *
      * @return array An array of Bid objects representing the top 3 highest bids.
      *               The array is sorted in ascending order based on the bid values.
      */
@@ -94,7 +89,6 @@ class Evaluator
 
     /**
      * Retrieves the top 3 lowest bids from the evaluated auction.
-     *
      * @return array An array of Bid objects representing the top 3 lowest bids.
      *               The array is sorted in ascending order based on the bid values.
      */
