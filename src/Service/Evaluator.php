@@ -9,7 +9,6 @@ class Evaluator
 {
     private float $highestValue = -INF;
     private float $lowestValue = INF;
-
     private array $bestBids = [];
     private array $worstBids = [];
 
