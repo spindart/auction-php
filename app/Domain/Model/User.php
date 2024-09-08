@@ -1,6 +1,6 @@
 <?php
 
-namespace Auction\Model;
+namespace Auction\Domain\Model;
 
 class User
 {

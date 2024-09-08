@@ -26,14 +26,11 @@
         </report>
         <include>
             <!-- Include directories or files for coverage -->
-            <directory>src</directory>
-            <file>src/SomeFile.php</file>
+            <directory>app</directory>
         </include>
         <exclude>
             <!-- Exclude directories or files from coverage -->
             <directory>vendor</directory>
-            <directory>tests/Exclude</directory>
-            <file>tests/SomeExcludedTest.php</file>
         </exclude>
     </coverage>
 

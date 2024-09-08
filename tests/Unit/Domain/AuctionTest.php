@@ -2,10 +2,9 @@
 
 namespace Auction\Tests\Unit\Domain;
 
-use Auction\Model\Auction;
-use Auction\Model\Bid;
-use Auction\Model\User;
-use PhpParser\Node\Stmt\UseUse;
+use Auction\Domain\Model\Auction;
+use Auction\Domain\Model\Bid;
+use Auction\Domain\Model\User;
 use PHPUnit\Framework\TestCase;
 
 class AuctionTest extends TestCase

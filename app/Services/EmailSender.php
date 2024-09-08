@@ -1,8 +1,8 @@
 <?php
 
-namespace Auction\Service;
+namespace Auction\Services;
 
-use Auction\Model\Auction;
+use Auction\Domain\Model\Auction;
 
 class EmailSender
 {

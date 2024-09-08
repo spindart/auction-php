@@ -1,6 +1,6 @@
 <?php
 
-namespace Auction\Infra;
+namespace Auction\Infrastructure\Persistence;
 
 class ConnectionCreator
 {

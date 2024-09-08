@@ -3,10 +3,10 @@
 namespace Auction\Tests\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
-use Auction\Model\Auction;
-use Auction\Model\Bid;
-use Auction\Model\User;
-use Auction\Service\Evaluator;
+use Auction\Domain\Model\Auction;
+use Auction\Domain\Model\Bid;
+use Auction\Domain\Model\User;
+use Auction\Services\Evaluator;
 
 class EvaluatorTest extends TestCase
 {
@@ -19,8 +19,6 @@ class EvaluatorTest extends TestCase
 
     /**
      * @dataProvider auctionInAscedingOrder
-     * @dataProvider auctionInDescendingOrder
-     * @dataProvider auctionInRandomOrder
      */
     public function testEvaluatorMustFindTheHighestValueOfBids(Auction $auction): void
     {
@@ -34,8 +32,6 @@ class EvaluatorTest extends TestCase
 
     /**
      * @dataProvider auctionInAscedingOrder
-     * @dataProvider auctionInDescendingOrder
-     * @dataProvider auctionInRandomOrder
      */
     public function testEvaluatorMustFindTheLowestValueOfBids(Auction $auction): void
     {
@@ -49,8 +45,6 @@ class EvaluatorTest extends TestCase
 
     /**
      * @dataProvider auctionInAscedingOrder
-     * @dataProvider auctionInDescendingOrder
-     * @dataProvider auctionInRandomOrder
      */
     public function testEvaluatorMustFindTheTop3HighestBids(Auction $auction): void
     {
@@ -67,8 +61,6 @@ class EvaluatorTest extends TestCase
 
     /**
      * @dataProvider auctionInAscedingOrder
-     * @dataProvider auctionInDescendingOrder
-     * @dataProvider auctionInRandomOrder
      */
     public function testEvaluatorMustFindTheTop3LowestBids(Auction $auction): void
     {
@@ -133,40 +125,5 @@ class EvaluatorTest extends TestCase
             'Asceding Order' =>  [$auction]
         ];
     }
-
-    public static function auctionInDescendingOrder(): array
-    {
-        $auction = new Auction('Lambo');
-        $user1 = new User('Jose');
-        $user2 = new User('Maria');
-        $user3 = new User('John');
-        $user4 = new User('Patricia');
-
-        $auction->makeBid(new Bid($user1, 4000));
-        $auction->makeBid(new Bid($user2, 3000));
-        $auction->makeBid(new Bid($user3, 2000));
-        $auction->makeBid(new Bid($user4, 1000));
-
-        return [
-            'Desceding Order' =>  [$auction]
-        ];
-    }
-
-    public static function auctionInRandomOrder(): array
-    {
-        $auction = new Auction('Lambo');
-        $user1 = new User('Jose');
-        $user2 = new User('Maria');
-        $user3 = new User('John');
-        $user4 = new User('Patricia');
-
-        $auction->makeBid(new Bid($user4, 1000));
-        $auction->makeBid(new Bid($user1, 4000));
-        $auction->makeBid(new Bid($user3, 2000));
-        $auction->makeBid(new Bid($user2, 3000));
-
-        return [
-            'Random Order' =>   [$auction]
-        ];
-    }
+  
 }

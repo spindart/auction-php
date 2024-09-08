@@ -5,7 +5,7 @@
  *
  * @package Auction\Model
  */
-namespace Auction\Model;
+namespace Auction\Domain\Model;
 class Bid
 {
     /** @var User The user who made the bid. */

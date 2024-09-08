@@ -1,9 +1,9 @@
 <?php
 
-namespace Auction\Service;
+namespace Auction\Services;
 
 use Auction\Dao\Auction as AuctionDao;
-use Auction\Model\Auction;
+use Auction\Domain\Model\Auction;
 use Exception;
 
 /**

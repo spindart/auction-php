@@ -3,7 +3,7 @@
 namespace Auction\Tests\Integration\Dao;
 
 use Auction\Dao\Auction as AuctionDao;
-use Auction\Model\Auction;
+use Auction\Domain\Model\Auction;
 use PHPUnit\Framework\TestCase;
 
 class AuctionDaoTest extends TestCase

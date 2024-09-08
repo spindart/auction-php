@@ -2,7 +2,7 @@
 
 namespace Auction\Dao;
 
-use Auction\Model\Auction as ModelAuction;
+use Auction\Domain\Model\Auction as ModelAuction;
 
 class Auction
 {

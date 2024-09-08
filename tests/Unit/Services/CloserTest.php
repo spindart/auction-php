@@ -1,11 +1,11 @@
 <?php
 
-namespace Auction\Tests\Unit\Service;
+namespace Auction\Tests\Unit\Services;
 
 use Auction\Model\Auction;
 use \Auction\Dao\Auction as AuctionDao;
-use Auction\Service\Closer;
-use Auction\Service\EmailSender;
+use Auction\Services\Closer;
+use Auction\Services\EmailSender;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

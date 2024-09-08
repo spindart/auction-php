@@ -1,8 +1,7 @@
 <?php
 
 use Auction\Dao\Auction as AuctionDao;
-use Auction\Infra\ConnectionCreator;
-use Auction\Model\Auction;
+use Auction\Domain\Model\Auction;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
