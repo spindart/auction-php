@@ -1,4 +1,4 @@
-# Auction 
+# Auction Domain model
 
 - Unit tests
 - Integration tests
