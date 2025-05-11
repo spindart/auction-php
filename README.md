@@ -1,4 +1,4 @@
-# Auction Domain
+# Auction
 - Unit tests
 - Integration tests
 - E2E tests
